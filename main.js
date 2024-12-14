@@ -32,25 +32,26 @@ userinput.addEventListener("focus", function(){
     userinput.value = "";
 })
 
-
 let maxNum = 10
 let minNum = 1
 
 function play() {
     //console.log("게임 시작")
-    let uservalue = userinput.value
+    let uservalue = Number(userinput.value) 
 
 
     if (history.includes(uservalue)) {
-        resultArea.textContent = "이미 입력한 숫자입니다 다른 숫자를 입력해 주세요 "
+        //resultArea.textContent = "이미 입력한 숫자입니다 다른 숫자를 입력해 주세요 "
+        resultArea.textContent = `이미 입력한 숫자입니다 ${minNum}~${maxNum}사이에 숫자를 입력해주세요.`;
         return;
     }
 
-    if(uservalue <= minNum || uservalue >= maxNum){
+
+    if(uservalue < minNum || uservalue > maxNum){
         resultArea.textContent = `${minNum}~${maxNum}사이에 숫자를 입력해주세요.`;
         return;
-    }
 
+    } 
 
 
     if(uservalue < computerNum){
@@ -61,30 +62,36 @@ function play() {
         //console.log("더 작은 숫자를 입력해주세요")
         resultArea.textContent = "더 작은 숫자를 입력해주세요"
         maxNum = uservalue;
-    }else if(uservalue = computerNum){
-        //console.log("정답")
+    }else if(uservalue == computerNum){
         resultArea.textContent = "정답"
-        //gameOver = true
-        play_btn.disabled = true;
-        return  
+        gameOver = true
+
     }
     
-    if(chances < 1)  {
-        //gameOver = true
-        resultArea.textContent = "정답 기회를 모두 소진했습니다."
-        play_btn.disabled = true;
-    }
-
-    //if (gameOver == true){
-    //    play_btn.disabled = true;
-    //}
-
     history.push(uservalue);
     //console.log(history)
 
     chances--;
     chancearea.textContent = `남은 기회:${chances}번`;
     //console.log("남은 기회 :" ,chances)
+
+    if(chances < 1 )  {
+        if (resultArea.textContent != "정답") {
+            resultArea.textContent = "정답 기회를 모두 소진했습니다."
+        }
+        gameOver = true
+    }
+
+
+    if (gameOver == true){
+        play_btn.disabled = true;
+        maxNum = 10
+        minNum = 1
+        history = [];
+        //chances = 3
+        return;
+    }
+
 
 
 }
@@ -98,7 +105,7 @@ function resetFn() {
     resultArea.textContent = "결과값이 여기 나옵니다.";
     chances = 3
     chancearea.textContent = `남은 기회:${chances}번`;
-    //gameOver = false
+    gameOver = false
     maxNum = 10
     minNum = 1
     history = [];
