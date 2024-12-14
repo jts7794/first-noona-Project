@@ -62,9 +62,20 @@ function play() {
     }else if(uservalue = computerNum){
         //console.log("정답")
         resultArea.textContent = "정답"
-        gameOver = true
+        //gameOver = true
+        play_btn.disabled = true;
+        return  
+    }
+    
+    if(chances < 1)  {
+        //gameOver = true
+        resultArea.textContent = "정답 기회를 모두 소진했습니다."
+        play_btn.disabled = true;
     }
 
+    //if (gameOver == true){
+    //    play_btn.disabled = true;
+    //}
 
     history.push(uservalue);
     //console.log(history)
@@ -72,14 +83,7 @@ function play() {
     chances--;
     chancearea.textContent = `남은 기회:${chances}번`;
     //console.log("남은 기회 :" ,chances)
-    if(chances < 1)  {
-        gameOver = true
-        resultArea.textContent = "정답 기회를 모두 소진했습니다."
-    }
-    if (gameOver == true){
-        play_btn.disabled = true;
-        
-    }
+
 
 }
 
@@ -92,7 +96,7 @@ function resetFn() {
     resultArea.textContent = "결과값이 여기 나옵니다.";
     chances = 3
     chancearea.textContent = `남은 기회:${chances}번`;
-    gameOver = false
+    //gameOver = false
     maxNum = 10
     minNum = 1
     history = [];
