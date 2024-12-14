@@ -74,11 +74,11 @@ function play() {
     //console.log("남은 기회 :" ,chances)
     if(chances < 1)  {
         gameOver = true
-
+        resultArea.textContent = "정답 기회를 모두 소진했습니다."
     }
     if (gameOver == true){
         play_btn.disabled = true;
-        resultArea.textContent = "정답 기회를 모두 소진했습니다."
+        
     }
 
 }
