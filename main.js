@@ -40,15 +40,17 @@ function play() {
     //console.log("게임 시작")
     let uservalue = userinput.value
 
-    if(uservalue < minNum || uservalue > maxNum){
-        resultArea.textContent = `${minNum}~${maxNum}사이에 숫자를 입력해주세요.`;
-        return;
-    }
 
     if (history.includes(uservalue)) {
         resultArea.textContent = "이미 입력한 숫자입니다 다른 숫자를 입력해 주세요 "
         return;
     }
+
+    if(uservalue <= minNum || uservalue >= maxNum){
+        resultArea.textContent = `${minNum}~${maxNum}사이에 숫자를 입력해주세요.`;
+        return;
+    }
+
 
 
     if(uservalue < computerNum){
